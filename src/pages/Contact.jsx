@@ -1,26 +1,7 @@
 import { useState } from "react";
 import PageHero from "../components/site/PageHero";
 import { Mail, Phone, MapPin, Send, ChevronDown } from "lucide-react";
-import { SITE } from "../lib/site";
-
-const faqs = [
-  {
-    q: "What ages do you accept?",
-    a: "We accept students from age 6 through adulthood — beginners and advanced players alike.",
-  },
-  {
-    q: "Do I need to own an instrument before enrolling?",
-    a: "No. We can guide you on appropriate instrument selection and rental options after assessment.",
-  },
-  {
-    q: "How often are lessons?",
-    a: "Programmes include weekly one-to-one lessons plus group theory and ensemble sessions.",
-  },
-  {
-    q: "Do you offer scholarships?",
-    a: "A limited number of merit-based scholarships are reviewed annually. Contact us for current openings.",
-  },
-];
+import { SITE, FAQS } from "../lib/site";
 
 export default function Contact() {
   const [openIdx, setOpenIdx] = useState(0);
@@ -205,30 +186,25 @@ export default function Contact() {
             </h2>
           </div>
           <div className="mt-12 space-y-3">
-            {faqs.map((f, i) => (
-              <div
-                key={f.q}
-                className="border border-[var(--color-border)] rounded-lg overflow-hidden"
-                style={{ background: "var(--color-card)" }}
-              >
+            {FAQS.map((f, i) => (
+              <div key={f.q} className="faq-accordion">
                 <button
                   onClick={() => setOpenIdx(openIdx === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 p-5 text-left font-medium"
-                  style={{ color: "var(--color-primary-heading)" }}
+                  className="faq-accordion-header"
                 >
-                  <span>{f.q}</span>
+                  <span className="flex items-center gap-3">
+                    <span className="text-[var(--color-gold)] text-sm">♪</span>
+                    <span>{f.q}</span>
+                  </span>
                   <ChevronDown
-                    className={`h-5 w-5 transition-transform ${openIdx === i ? "rotate-180" : ""}`}
+                    className={`faq-accordion-icon ${openIdx === i ? "open" : ""}`}
                   />
                 </button>
-                {openIdx === i && (
-                  <div
-                    className="px-5 pb-5 animate-fade-in"
-                    style={{ color: "var(--color-muted-foreground)" }}
-                  >
-                    {f.a}
-                  </div>
-                )}
+                <div
+                  className={`faq-accordion-content ${openIdx === i ? "open" : ""}`}
+                >
+                  <div className="faq-accordion-body">{f.a}</div>
+                </div>
               </div>
             ))}
           </div>

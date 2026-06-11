@@ -17,7 +17,7 @@ export default function App() {
     <BrowserRouter>
       <ThemeProvider>
         <Nav />
-        <main>
+        <main className="pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
